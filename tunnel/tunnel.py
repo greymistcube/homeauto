@@ -1,23 +1,19 @@
 #!/usr/bin/python3
 
 import os, subprocess, time
-from config import REMOTE, USER, KEY_PATH, REMOTE_PORT, LOCAL_PORT
-
-# wait times
-BOOT_WAIT_TIME = 60
-RECONNECT_WAIT_TIME = 60
+import config
 
 ssh_exec = "ssh"
 ssh_comm = [
     ssh_exec,
-    "-i", f"{KEY_PATH}",
+    "-i", f"{config.KEY_PATH}",
     "-N",
-    "-R", f"{REMOTE_PORT}:localhost:{LOCAL_PORT}",
-    f"{USER}@{REMOTE}",
+    "-R", f"{config.REMOTE_PORT}:localhost:{config.LOCAL_PORT}",
+    f"{config.USER}@{config.REMOTE}",
 ]
 
 pushover_exec = "pushover.py"
-pushover_msg = f"ssh connection to {REMOTE} has been dropped"
+pushover_msg = f"ssh connection to {config.REMOTE} has been dropped"
 pushover_comm = [
     pushover_exec,
     pushover_msg,
@@ -26,7 +22,7 @@ pushover_comm = [
 if __name__ == "__main__":
     # since this is a boot script
     # wait for other services to load just in case
-    time.sleep(BOOT_WAIT_TIME)
+    time.sleep(config.BOOT_WAIT_TIME)
 
     while True:
         # make an attempt to connect
@@ -41,4 +37,4 @@ if __name__ == "__main__":
             subprocess.run(pushover_comm)
 
         # wait before making another attempt
-        time.sleep(RECONNECT_WAIT_TIME)
+        time.sleep(config.RECONNECT_WAIT_TIME)

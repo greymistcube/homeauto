@@ -1,10 +1,10 @@
 import sys, os, sqlite3, datetime, subprocess
-from db_config import DB_NAME
+import db_config
 
 # setting up paths
 MOD_PATH = os.path.realpath(__file__)
 DIR_PATH = os.path.dirname(MOD_PATH)
-DB_PATH = os.path.join(DIR_PATH, DB_NAME)
+DB_PATH = os.path.join(DIR_PATH, db_config.DB_NAME)
 
 def tables() -> list:
     conn = sqlite3.connect(DB_PATH)
