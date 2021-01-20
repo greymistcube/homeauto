@@ -16,10 +16,10 @@ ssh_args = [
     f"{USER}@{REMOTE}",
 ]
 
-pushover_bin = "pushover.py"
+pushover_exec = "pushover.py"
 pushover_msg = f"ssh connection to {REMOTE} has been dropped"
-pushover_args = [
-    pushover_bin,
+pushover_comm = [
+    pushover_exec,
     pushover_msg,
 ]
 
@@ -38,7 +38,7 @@ if __name__ == "__main__":
         # we assume there was a successful session
         # and then the connection dropped for whatever reason
         if end - start > 600:
-            subprocess.run(pushover_args)
+            subprocess.run(pushover_comm)
 
         # wait before making another attempt
         time.sleep(RECONNECT_WAIT_TIME)
