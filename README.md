@@ -24,6 +24,12 @@ features must also be implemented:
 
 ## Components
 
+See each accompanied component document for more details.
+
+* [tunnel](./tunnel/README.md)
+* [pushover](./pushover/README.md)
+* [homeauto](./homeauto/README.md)
+
 ### Tunnel
 
 This is used to funnel traffic to `cloud_server` to `home_server`.
