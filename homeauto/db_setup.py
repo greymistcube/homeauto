@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 
 import os, sqlite3
-from db_config import DB_NAME, TABLES
+import db_config
 
 # setting up paths
 MOD_PATH = os.path.realpath(__file__)
 DIR_PATH = os.path.dirname(MOD_PATH)
-DB_PATH = os.path.join(DIR_PATH, DB_NAME)
+DB_PATH = os.path.join(DIR_PATH, db_config.DB_NAME)
 
 TEMPLATE = """
 CREATE TABLE {} (
@@ -15,7 +15,9 @@ CREATE TABLE {} (
 );
 """
 
-CREATE_TABLE_COMMANDS = [TEMPLATE.format(table, "TEXT") for table in TABLES]
+CREATE_TABLE_COMMANDS = [
+    TEMPLATE.format(table, "TEXT") for table in db_config.TABLES
+]
 
 if __name__ == "__main__":
     conn = sqlite3.connect(DB_PATH)

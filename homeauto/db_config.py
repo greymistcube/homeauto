@@ -1,8 +1,8 @@
 DB_NAME = "homeauto.db"
 TABLES = [
-    "sensor_temp", "sensor_wifi", "sensor_light_room", "sensor_light_kitchen",
-    "controller_light_room", "controller_light_kitchen", "controller_ac",
+    "sensor_temp", "sensor_wifi", "sensor_living_room", "sensor_kitchen",
+    "controller_living_room", "controller_kitchen", "controller_ac",
 ]
 TRIGGERS = [
-    "sensor_temp", "sensor_wifi", "sensor_light_room", "sensor_light_kitchen",
+    "sensor_temp", "sensor_wifi", "sensor_living_room", "sensor_kitchen",
 ]

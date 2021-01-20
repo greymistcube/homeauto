@@ -2,7 +2,7 @@
 
 import sys, argparse
 import requests
-from config import TOKEN, USER, URL
+import config
 
 def args():
     desc = "homeauto script"
@@ -25,13 +25,13 @@ if __name__ == '__main__':
 
     # prepare data
     data = {
-        "token": TOKEN,
-        "user": USER,
+        "token": config.TOKEN,
+        "user": config.USER,
         "message": message,
     }
 
     # send data
     response = requests.post(
-        url=URL,
+        url=config.URL,
         json=data,
     )
