@@ -7,9 +7,9 @@ from config import REMOTE, USER, KEY_PATH, REMOTE_PORT, LOCAL_PORT
 BOOT_WAIT_TIME = 60
 RECONNECT_WAIT_TIME = 60
 
-ssh_bin = "ssh"
-ssh_args = [
-    ssh_bin,
+ssh_exec = "ssh"
+ssh_comm = [
+    ssh_exec,
     "-i", f"{KEY_PATH}",
     "-N",
     "-R", f"{REMOTE_PORT}:localhost:{LOCAL_PORT}",
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     while True:
         # make an attempt to connect
         start = time.time()
-        subprocess.run(ssh_args)
+        subprocess.run(ssh_comm)
         end = time.time()
 
         # if an attempt lasted longer than 10 minutes
