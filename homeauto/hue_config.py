@@ -3,6 +3,7 @@ USER: str # <url>
 
 LIVING_ROOM = "living_room"
 KITCHEN = "kitchen"
+ROOMS = [LIVING_ROOM, KITCHEN]
 ROOM_URL = {
     LIVING_ROOM: f"{HUE_URL}/api/{USER}/groups/1",
     KITCHEN: f"{HUE_URL}/api/{USER}/groups/1",
