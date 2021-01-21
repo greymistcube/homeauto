@@ -108,13 +108,14 @@ def _temp_hot() -> bool:
 def _light_stopwatch(room: str) -> float:
     records = db_io.latest_records(f"sensor_{room}")
     records = [(record[0] == "True", record[1]) for record in records]
-    last_false_index = -1
+    false_index = -1
     for i in range(len(records)):
         if not records[i][0]:
-            last_false_index = i
-    records = records[last_false_index + 1:]
+            false_index = i
+            break
+    records = records[:false_index]
     if records:
-        return timestamp() - records[0][1]
+        return timestamp() - records[-1][1]
     else:
         return 0
 
@@ -123,7 +124,7 @@ def _summer() -> bool:
     return date.month in homeauto_config.SUMMER_MONTHS
 
 def timestamp() -> float:
-    return datetime.datetime.now()
+    return datetime.datetime.now().timestamp()
 
 if __name__ == "__main__":
     options = args()
