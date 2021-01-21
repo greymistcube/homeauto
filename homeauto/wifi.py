@@ -3,8 +3,8 @@
 import argparse
 import db_io
 
-def args():
-    desc = "homeauto script"
+def args() -> argparse.Namespace:
+    desc = "wifi sensor logging script"
     parser = argparse.ArgumentParser(
         description=desc,
     )

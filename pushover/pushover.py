@@ -4,8 +4,8 @@ import sys, argparse
 import requests
 import config
 
-def args():
-    desc = "homeauto script"
+def args() -> argparse.Namespace:
+    desc = "pushover message pushing script"
     parser = argparse.ArgumentParser(
         description=desc,
     )
