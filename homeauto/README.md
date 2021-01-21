@@ -24,7 +24,7 @@ All files inside `homeauto` are deployed to
 $HOME/bin/homeauto/
 ```
 
-directory of `pushover` user on `local_server` with symbolic links
+directory of `homeauto` user on `local_server` with symbolic links
 for executables inside
 
 ```sh
