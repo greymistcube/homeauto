@@ -3,9 +3,6 @@
 import argparse, subprocess, time
 import ac_config, db_io
 
-# requires flirc_util
-flirc_exec = "flirc_util"
-
 def args() -> argparse.Namespace:
     desc = "ac control script"
     parser = argparse.ArgumentParser(
@@ -33,6 +30,9 @@ def ac_control(power: bool) -> None:
         pattern = ac_config.ON_SIGNAL
     else:
         pattern = ac_config.OFF_SIGNAL
+
+    # requires flirc_util
+    flirc_exec = "flirc_util"
     flirc_comm = [
         flirc_exec,
         "sendir",
