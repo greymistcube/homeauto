@@ -31,6 +31,18 @@ def latest_records(table: str) -> list:
 
     return records
 
+def prune_tables() -> None:
+    for table in db_config.TABLES:
+        conn = sqlite3.connect(DB_PATH)
+        limit = timestamp() - db_config.TIMEFRAME
+        conn.execute(f"""
+        DELETE FROM {table}
+        WHERE timestamp < {limit}
+        """)
+        conn.commit()
+        conn.close()
+    return
+
 def insert_record(record: dict) -> None:
     conn = sqlite3.connect(DB_PATH)
     table = record["table"]
