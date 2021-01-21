@@ -37,6 +37,9 @@ def sensor_living_room():
     room = "living_room"
     if homeauto_config.TIMEOUT[room] < _light_stopwatch(room):
         hue_io.set_light_power(room, False)
+    else:
+        color = _light_color("living_room")
+        hue_io.set_light_color("living_room", color["hue"], color["sat"])
     return
 
 def sensor_kitchen():
@@ -47,6 +50,9 @@ def sensor_kitchen():
     room = "kitchen"
     if homeauto_config.TIMEOUT[room] < _light_stopwatch(room):
         hue_io.set_light_power(room, False)
+    else:
+        color = _light_color("kitchen")
+        hue_io.set_light_color("kitchen", color["hue"], color["sat"])
     return
 
 def sensor_temp():
@@ -68,6 +74,8 @@ def sensor_wifi():
     """
     if _wifi_connected():
         hue_io.set_light_power("living_room", True)
+        color = _light_color("living_room")
+        hue_io.set_light_color("living_room", color["hue"], color["sat"])
         if _summer() and _temp_hot() and not _get_ac_state():
             _set_ac_state(True)
     # just turn off everything when leaving the house
@@ -106,6 +114,9 @@ def _temp_hot() -> bool:
     return float(record[0]) > homeauto_config.TEMP_HI
 
 def _light_stopwatch(room: str) -> float:
+    """
+    Roughly estimates how long light has been on.
+    """
     records = db_io.latest_records(f"sensor_{room}")
     records = [(record[0] == "True", record[1]) for record in records]
     false_index = -1
@@ -118,6 +129,22 @@ def _light_stopwatch(room: str) -> float:
         return timestamp() - records[-1][1]
     else:
         return 0
+
+def _light_color(room: str) -> dict:
+    if room == "living_room":
+        hour = datetime.datetime.now().hour
+        color = _hour_to_light_color(hour)
+        return color
+    else:
+        return homeauto_config.COLOR["pure"]
+
+def _hour_to_light_color(hour: int):
+    if 2 <= hour and hour < 10:
+        return homeauto_config.COLOR["warm"]
+    elif 10 <= hour and hour < 20:
+        return homeauto_config.COLOR["ghost"]
+    else:
+        return homeauto_config.COLOR["candle"]
 
 def _summer() -> bool:
     date = datetime.datetime.now()
