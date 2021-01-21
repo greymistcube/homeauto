@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import argparse, subprocess, time
-import ac_config
+import ac_config, db_io
 
 def args() -> argparse.Namespace:
     desc = "ac control script"
@@ -19,6 +19,13 @@ def args() -> argparse.Namespace:
     return args
 
 def set_ac_state(power: bool) -> None:
+    # record to db
+    data = {
+        "table": "control_ac",
+        "state": power,
+    }
+    db_io.insert_record(data)
+
     if power:
         pattern = ac_config.ON_SIGNAL
     else:
@@ -31,6 +38,7 @@ def set_ac_state(power: bool) -> None:
         "sendir",
         f"--pattern={pattern}",
     ]
+
     # run twice for robustness
     subprocess.run(flirc_comm)
     time.sleep(ac_config.WAIT_TIME)
