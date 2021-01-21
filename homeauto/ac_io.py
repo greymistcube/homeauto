@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import argparse, subprocess, time
-import ac_config, db_io
+import ac_config
 
 def args() -> argparse.Namespace:
     desc = "ac control script"
@@ -18,14 +18,7 @@ def args() -> argparse.Namespace:
     args = parser.parse_args()
     return args
 
-def ac_control(power: bool) -> None:
-    # record to db
-    data = {
-        "table": "control_ac",
-        "state": power,
-    }
-    db_io.insert_record(data)
-
+def set_ac_state(power: bool) -> None:
     if power:
         pattern = ac_config.ON_SIGNAL
     else:
@@ -46,4 +39,4 @@ def ac_control(power: bool) -> None:
 
 if __name__ == "__main__":
     options = args()
-    ac_control(options.power == "on")
+    set_ac_state(options.power == "on")
