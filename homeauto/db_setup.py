@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 
-import os, sqlite3
+import os, shutil, sqlite3
 import db_config
 
 # setting up paths
 MOD_PATH = os.path.realpath(__file__)
 DIR_PATH = os.path.dirname(MOD_PATH)
-DB_PATH = os.path.join(DIR_PATH, db_config.DB_NAME)
+DB_DIR = os.path.join(DIR_PATH, db_config.DB_DIR)
+DB_PATH = os.path.join(DB_DIR, db_config.DB_FILE)
 
 TEMPLATE = """
 CREATE TABLE {} (
@@ -20,6 +21,15 @@ CREATE_TABLE_COMMANDS = [
 ]
 
 if __name__ == "__main__":
+    # remove old db
+    try:
+        shutil.rmtree(DB_DIR)
+    except:
+        pass
+
+    # create a new db with right permissions
+    os.mkdir(DB_DIR)
+
     conn = sqlite3.connect(DB_PATH)
     for command in CREATE_TABLE_COMMANDS:
         try:
@@ -28,3 +38,6 @@ if __name__ == "__main__":
             pass
     conn.commit()
     conn.close()
+
+    os.chmod(DB_DIR, 0o0777)
+    os.chmod(DB_PATH, 0o0666)
