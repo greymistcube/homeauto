@@ -30,7 +30,7 @@ $HOME/bin/tunnel.py -> $HOME/bin/tunnel/tunnel.py
 for easy access.
 
 Finally, in order to run at boot time, the following is added to the `crontab`
-for the user.
+of the user.
 
 ```
 @reboot $HOME/bin/tunnel.py
