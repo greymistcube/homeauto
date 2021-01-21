@@ -36,9 +36,10 @@ pointing to appropriate files.
 Note that `db_setup.py` must be run once to initialize the database
 before usage.
 
-Finally, to have sensor polling automated every `5` minutes, the following
-is added to the `crontab` for the user.
+Finally, for automated script executions, the following
+is added to the `crontab` of the user.
 
 ```
 */5 * * * * $HOME/bin/poll.py
+0 0 * * * $HOME/bin/db_prune.py
 ```
