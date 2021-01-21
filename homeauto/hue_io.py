@@ -4,11 +4,11 @@ import db_io, hue_config
 # sensor functions
 def get_light_state(room: str) -> bool:
     response = requests.get(url=hue_config.ROOM_URL[room])
-    return response.content.json()['state']['any_on']
+    return response.json()['state']['any_on']
 
 def get_temp_state() -> float:
     response = requests.get(url=hue_config.TEMP_URL)
-    return response.content.json()['state']['temperature'] / 100
+    return response.json()['state']['temperature'] / 100
 
 # control functions
 def set_light_power(room: str, on: bool) -> requests.Response:
@@ -16,7 +16,7 @@ def set_light_power(room: str, on: bool) -> requests.Response:
         "table": f"control_{room}",
         "state": on,
     }
-    db_io.insert_record(record=data)
+    db_io.insert_record(data)
     url = hue_config.ROOM_URL[room]
     state = light_power_state(on, hue_config.ROOM_BRIGHTNESS[room])
     return action(url=url, state=state)
@@ -30,7 +30,7 @@ def set_light_color(
         "table": f"control_{room}",
         "state": [hue, sat],
     }
-    db_io.insert_record(record=data)
+    db_io.insert_record(data)
     url = hue_config.ROOM_URL[room]
     state = light_color_state(hue, sat, hue_config.ROOM_BRIGHTNESS[room])
     return action(url=url, state=state)

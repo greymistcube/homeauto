@@ -83,13 +83,6 @@ def _get_ac_state() -> bool:
     return record[0] == "True"
 
 def _set_ac_state(power: bool) -> None:
-    # record to db
-    data = {
-        "table": "control_ac",
-        "state": power,
-    }
-    db_io.insert_record(data)
-
     # run ac_io as async process
     if power:
         arg = "on"
