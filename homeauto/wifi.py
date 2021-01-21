@@ -3,14 +3,14 @@
 import argparse
 import db_io
 
-def args():
-    desc = "homeauto script"
+def args() -> argparse.Namespace:
+    desc = "wifi sensor logging script"
     parser = argparse.ArgumentParser(
         description=desc,
     )
     parser.add_argument(
         "state",
-        help="state of wifi connection",
+        help="state of wifi connection to log",
         type=str,
         choices=["on", "off"],
         action='store',

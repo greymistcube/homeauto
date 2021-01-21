@@ -13,7 +13,7 @@ def get_temp_state() -> float:
 # control functions
 def set_light_power(room: str, on: bool) -> requests.Response:
     data = {
-        "table": f"controller_{room}",
+        "table": f"control_{room}",
         "state": on,
     }
     db_io.insert_record(record=data)
@@ -27,7 +27,7 @@ def set_light_color(
     sat: float,
 ) -> requests.Response:
     data = {
-        "table": f"controller_{room}",
+        "table": f"control_{room}",
         "state": [hue, sat],
     }
     db_io.insert_record(record=data)

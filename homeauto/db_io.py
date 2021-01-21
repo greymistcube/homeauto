@@ -18,9 +18,9 @@ def tables() -> list:
     tables = [table[0] for table in tables]
     return tables
 
-def latest_records(table: str, seconds: int) -> list:
+def latest_records(table: str) -> list:
     conn = sqlite3.connect(DB_PATH)
-    limit = timestamp() - seconds
+    limit = timestamp() - db_config.TIMEFRAME
     records = conn.execute(f"""
     SELECT * FROM {table}
     WHERE timestamp > {limit}
