@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import os, shutil, sqlite3
-import db_config
+import db_config, db_io
 
 # setting up paths
 MOD_PATH = os.path.realpath(__file__)
@@ -38,6 +38,16 @@ if __name__ == "__main__":
             pass
     conn.commit()
     conn.close()
+
+    # initialize records
+    db_io.insert_record({
+        "table": "control_ac",
+        "state": False,
+    })
+    db_io.insert_record({
+        "table": "sensor_wifi",
+        "state": False,
+    })
 
     os.chmod(DB_DIR, 0o0777)
     os.chmod(DB_PATH, 0o0666)
