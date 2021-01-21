@@ -10,7 +10,7 @@ def args() -> argparse.Namespace:
     )
     parser.add_argument(
         "state",
-        help="state of wifi connection",
+        help="state of wifi connection to log",
         type=str,
         choices=["on", "off"],
         action='store',
