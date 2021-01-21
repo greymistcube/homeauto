@@ -34,7 +34,7 @@ def latest_records(table: str, seconds: int) -> list:
 def insert_record(record: dict) -> None:
     conn = sqlite3.connect(DB_PATH)
     table = record["table"]
-    values = (record["state"], timestamp())
+    values = (str(record["state"]), timestamp())
     conn.execute(f"""
     INSERT INTO {table} VALUES (?, ?);
     """, values)
