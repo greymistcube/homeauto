@@ -4,7 +4,8 @@ import db_config
 # setting up paths
 MOD_PATH = os.path.realpath(__file__)
 DIR_PATH = os.path.dirname(MOD_PATH)
-DB_PATH = os.path.join(DIR_PATH, db_config.DB_NAME)
+DB_DIR = os.path.join(DIR_PATH, db_config.DB_DIR)
+DB_PATH = os.path.join(DB_DIR, db_config.DB_FILE)
 
 def tables() -> list:
     conn = sqlite3.connect(DB_PATH)
@@ -33,7 +34,7 @@ def latest_records(table: str, seconds: int) -> list:
 def insert_record(record: dict) -> None:
     conn = sqlite3.connect(DB_PATH)
     table = record["table"]
-    values = (record["state"], timestamp())
+    values = (str(record["state"]), timestamp())
     conn.execute(f"""
     INSERT INTO {table} VALUES (?, ?);
     """, values)

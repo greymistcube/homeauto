@@ -3,7 +3,7 @@
 import db_io, hue_io, hue_config
 
 if __name__ == "__main__":
-    lights_data = {
+    light_data = {
         room: {
             "table": f"sensor_{room}",
             "state": hue_io.get_light_state(room),
@@ -15,5 +15,5 @@ if __name__ == "__main__":
     }
 
     for room in hue_config.ROOMS:
-        db_io.insert_record(lights_data[room])
+        db_io.insert_record(light_data[room])
     db_io.insert_record(temp_data)

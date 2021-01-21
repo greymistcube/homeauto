@@ -8,7 +8,6 @@ def args():
     desc = "homeauto script"
     parser = argparse.ArgumentParser(
         description=desc,
-        formatter_class=argparse.RawTextHelpFormatter,
     )
     parser.add_argument(
         "message",
