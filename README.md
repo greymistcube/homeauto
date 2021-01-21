@@ -43,7 +43,7 @@ are removed from the repository.
 
 ### Tunnel
 
-This is used to funnel traffic to `cloud_server` to `home_server`.
+This is used to funnel traffic directed to `cloud_server` to `home_server`.
 As `home_server` is without a fixed address, this is so that
 `cloud_server` can be used as an api gateway to `home_server`
 
@@ -55,7 +55,7 @@ on system health.
 
 ### Homeauto
 
-Collection of executable scripts for the entire system.
+Collection of executable scripts for the core system.
 Handles database management, core logic, and control of appliances.
 
 [homeauto_system]: ./docs/static/homeauto_system.png
