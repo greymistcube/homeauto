@@ -1,14 +1,14 @@
-import requests, json
+import requests
 import db_io, hue_config
 
 # sensor functions
 def get_light_state(room: str) -> bool:
     response = requests.get(url=hue_config.ROOM_URL[room])
-    return json.loads(response.content)['state']['any_on']
+    return response.content.json()['state']['any_on']
 
 def get_temp_state() -> float:
     response = requests.get(url=hue_config.TEMP_URL)
-    return json.loads(response.content)['state']['temperature'] / 100
+    return response.content.json()['state']['temperature'] / 100
 
 # control functions
 def set_light_power(room: str, on: bool) -> requests.Response:
