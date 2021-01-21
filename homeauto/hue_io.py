@@ -46,7 +46,6 @@ def light_power_state(on: bool, bri: float) -> dict:
     return {
         "on": on,
         "bri": int(255 * bri),
-        "transitiontime": hue_config.TRANSITION_TIME * 10,
     }
 
 def light_color_state(hue: float, sat: float, bri: float) -> dict:
