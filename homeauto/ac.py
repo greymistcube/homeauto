@@ -7,7 +7,7 @@ import ac_config, db_io
 flirc_exec = "flirc_util"
 
 def args() -> argparse.Namespace:
-    desc = "ac controller script"
+    desc = "ac control script"
     parser = argparse.ArgumentParser(
         description=desc,
     )
@@ -24,7 +24,7 @@ def args() -> argparse.Namespace:
 def ac_control(power: bool) -> None:
     # record to db
     data = {
-        "table": "controller_ac",
+        "table": "control_ac",
         "state": power,
     }
     db_io.insert_record(data)
