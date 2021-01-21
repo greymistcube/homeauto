@@ -8,6 +8,13 @@ import db_io, ac_io, hue_io
 MOD_PATH = os.path.realpath(__file__)
 DIR_PATH = os.path.dirname(MOD_PATH)
 
+pushover_exec = "pushover.py"
+pushover_msg = "something has gone wrong while running homeauto.py"
+pushover_comm = [
+    pushover_exec,
+    pushover_msg,
+]
+
 def args() -> argparse.Namespace:
     desc = "wifi sensor logging script"
     parser = argparse.ArgumentParser(
@@ -76,13 +83,6 @@ def _get_ac_state() -> bool:
     return record[0] == "True"
 
 def _set_ac_state(power: bool) -> None:
-    # record to db
-    data = {
-        "table": "control_ac",
-        "state": power,
-    }
-    db_io.insert_record(data)
-
     # run ac_io as async process
     if power:
         arg = "on"
@@ -127,13 +127,16 @@ def timestamp() -> float:
 
 if __name__ == "__main__":
     options = args()
-    if options.sensor == "sensor_living_room":
-        sensor_living_room()
-    elif options.sensor == "sensor_kitchen":
-        sensor_kitchen()
-    elif options.sensor == "sensor_temp":
-        sensor_temp()
-    elif options.sensor == "sensor_wifi":
-        sensor_wifi()
-    else:
-        pass
+    try:
+        if options.sensor == "sensor_living_room":
+            sensor_living_room()
+        elif options.sensor == "sensor_kitchen":
+            sensor_kitchen()
+        elif options.sensor == "sensor_temp":
+            sensor_temp()
+        elif options.sensor == "sensor_wifi":
+            sensor_wifi()
+        else:
+            pass
+    except:
+        subprocess.run(pushover_comm)
