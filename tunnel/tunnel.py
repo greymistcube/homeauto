@@ -33,7 +33,7 @@ if __name__ == "__main__":
         # if an attempt lasted longer than 10 minutes
         # we assume there was a successful session
         # and then the connection dropped for whatever reason
-        if end - start > 600:
+        if end - start > config.MIN_SESSION_LENGTH:
             subprocess.run(pushover_comm)
 
         # wait before making another attempt
