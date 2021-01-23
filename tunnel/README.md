@@ -30,8 +30,11 @@ $HOME/bin/tunnel.py -> $HOME/bin/tunnel/tunnel.py
 for easy access.
 
 Finally, in order to run at boot time, the following is added to the `crontab`
-of the user.
+of the user. Additionally, to have access to other global custom scripts,
+`/usr/local/bin` is also set to path.
+
 
 ```
+PATH=/usr/bin:/bin:/usr/local/bin
 @reboot $HOME/bin/tunnel.py
 ```
