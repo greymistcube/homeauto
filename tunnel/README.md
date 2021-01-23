@@ -31,7 +31,7 @@ for easy access.
 
 Finally, in order to run at boot time, the following is added to the `crontab`
 of the user. Additionally, to have access to other global custom scripts,
-`/usr/local/bin` is also set.
+`/usr/local/bin` is also set to path.
 
 
 ```

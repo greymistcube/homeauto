@@ -38,7 +38,7 @@ before usage.
 
 Finally, for automated script executions, the following
 is added to the `crontab` of the user. Additionally, to have access
-to other global custom scripts, `/usr/local/bin` is also set.
+to other global custom scripts, `/usr/local/bin` is also set to path.
 
 ```
 PATH=/usr/bin:/bin:/usr/local/bin
