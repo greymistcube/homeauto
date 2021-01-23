@@ -37,9 +37,11 @@ Note that `db_setup.py` must be run once to initialize the database
 before usage.
 
 Finally, for automated script executions, the following
-is added to the `crontab` of the user.
+is added to the `crontab` of the user. Additionally, to have access
+to other global custom scripts, `/usr/local/bin` is also set.
 
 ```
+PATH=/usr/bin:/bin:/usr/local/bin
 */5 * * * * $HOME/bin/poll.py
 0 0 * * * $HOME/bin/db_prune.py
 ```
