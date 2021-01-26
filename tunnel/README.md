@@ -29,10 +29,24 @@ $HOME/bin/tunnel.py -> $HOME/bin/tunnel/tunnel.py
 
 for easy access.
 
+To keep the connection persistant, instead of dropping and reconnecting
+due to inactivity, the `ssh` config file
+
+```sh
+$HOME/.ssh/config
+```
+
+is set to the following.
+
+```
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+```
+
 Finally, in order to run at boot time, the following is added to the `crontab`
 of the user. Additionally, to have access to other global custom scripts,
 `/usr/local/bin` is also set to path.
-
 
 ```
 PATH=/usr/bin:/bin:/usr/local/bin
