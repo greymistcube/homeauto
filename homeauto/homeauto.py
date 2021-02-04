@@ -16,7 +16,7 @@ pushover_comm = [
 ]
 
 def args() -> argparse.Namespace:
-    desc = "wifi sensor logging script"
+    desc = "homeauto main script"
     parser = argparse.ArgumentParser(
         description=desc,
     )
@@ -28,6 +28,9 @@ def args() -> argparse.Namespace:
     )
     args = parser.parse_args()
     return args
+
+def sensor_mode():
+    pass
 
 def sensor_living_room():
     """

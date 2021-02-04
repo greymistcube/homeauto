@@ -27,9 +27,9 @@ def set_ac_state(power: bool) -> None:
     db_io.insert_record(data)
 
     if power:
-        pattern = ac_config.ON_SIGNAL
+        pattern = ac_config.ON_PATTERN
     else:
-        pattern = ac_config.OFF_SIGNAL
+        pattern = ac_config.OFF_PATTERN
 
     # requires flirc_util
     flirc_exec = "flirc_util"
