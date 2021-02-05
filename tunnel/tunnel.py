@@ -6,7 +6,7 @@ import config
 ssh_exec = "ssh"
 ssh_comm = [
     ssh_exec,
-    "-i", f"{config.KEY_PATH}",
+    "-i", f"{config.KEY}",
     "-N",
     "-R", f"{config.REMOTE_PORT}:localhost:{config.LOCAL_PORT}",
     f"{config.USER}@{config.REMOTE}",
