@@ -46,6 +46,14 @@ def sensor_kitchen():
         homeauto_control.light_color(room)
     return
 
+def sensor_mode():
+    """
+    Control living room light when triggered by mode change.
+    """
+    room = "living_room"
+    homeauto_control.light_color(room)
+    return
+
 def sensor_temp():
     """
     Control ac when triggered by temp sensor.
@@ -97,6 +105,8 @@ if __name__ == "__main__":
             sensor_temp()
         elif options.sensor == "sensor_wifi":
             sensor_wifi()
+        elif options.sensor == "sensor_mode":
+            sensor_mode()
         else:
             pass
     except:

@@ -41,6 +41,16 @@ def summer_month() -> bool:
     """
     return datetime.datetime.now().month in homeauto_config.SUMMER_MONTHS
 
+def mode() -> str:
+    """
+    Determines which mode the system is in.
+    """
+    try:
+        record = db_io.latest_records("sensor_mode")[0]
+        return record[0]
+    except:
+        return "auto"
+
 def light_power(room: str) -> bool:
     """
     Determines if light is on.
