@@ -1,0 +1,7 @@
+{
+    "remote": "<remote address>",
+    "user": "<user>",
+    "key": "<key>",
+    "remote_port": "<remote port>",
+    "local_port": "<local port>"
+}
