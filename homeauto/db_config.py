@@ -2,7 +2,7 @@ DB_DIR = "db/"
 DB_FILE = "homeauto.db"
 TABLES = [
     "sensor_temp", "sensor_wifi", "sensor_living_room", "sensor_kitchen",
-    "control_living_room", "control_kitchen", "control_ac",
+    "sensor_mode", "control_living_room", "control_kitchen", "control_ac",
 ]
 TRIGGERS = [
     "sensor_temp", "sensor_wifi", "sensor_living_room", "sensor_kitchen",

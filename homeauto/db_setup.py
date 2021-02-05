@@ -45,6 +45,10 @@ if __name__ == "__main__":
         "state": False,
     })
     db_io.insert_record({
+        "table": "sensor_mode",
+        "state": "auto",
+    })
+    db_io.insert_record({
         "table": "sensor_wifi",
         "state": False,
     })
