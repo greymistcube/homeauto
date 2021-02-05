@@ -1,6 +1,6 @@
 import json
 
-with open("config.json", "r") as file:
+with open("cred.json", "r") as file:
     cred = json.load(file)
 
 REMOTE = cred["remote"]
