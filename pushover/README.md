@@ -9,7 +9,7 @@ Simply sends a string message given as an argument to the script.
 
 ## Usage
 
-Files `pushover.py` and `config.py` are deployed to
+Files are deployed to
 
 ```sh
 $HOME/bin/pushover/
