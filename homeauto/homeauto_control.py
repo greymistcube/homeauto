@@ -13,8 +13,14 @@ def light_color(room: str) -> None:
     """
     Adjust light color.
     """
-    color = _get_group_color(room)
-    hue_io.set_group_color(room, color["hue"], color["sat"])
+    if room == "living_room":
+        color = _get_group_color(room)
+        hue_io.set_group_color(room, color["hue"], color["sat"])
+    elif room == "kitchen":
+        color = _get_group_color(room)
+        hue_io.set_group_color(room, color["hue"], color["sat"])
+    else:
+        raise ValueError(f"invalid value for room: {room}")
     return
 
 def ac_power(power: bool) -> None:
