@@ -16,7 +16,7 @@ if __name__ == "__main__":
         light_data = {
             room: {
                 "table": f"sensor_{room}",
-                "state": hue_io.get_light_state(room),
+                "state": hue_io.get_group_power(room),
             } for room in hue_config.ROOMS
         }
         temp_data = {

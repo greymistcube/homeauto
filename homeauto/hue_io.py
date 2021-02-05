@@ -2,7 +2,7 @@ import requests
 import db_io, hue_config
 
 # sensor functions
-def get_light_state(room: str) -> bool:
+def get_group_power(room: str) -> bool:
     response = requests.get(url=hue_config.ROOM_URL[room])
     return response.json()['state']['any_on']
 
@@ -11,7 +11,7 @@ def get_temp_state() -> float:
     return response.json()['state']['temperature'] / 100
 
 # control functions
-def set_light_power(room: str, on: bool) -> requests.Response:
+def set_group_power(room: str, on: bool) -> requests.Response:
     data = {
         "table": f"control_{room}",
         "state": on,
@@ -21,7 +21,7 @@ def set_light_power(room: str, on: bool) -> requests.Response:
     state = light_power_state(on, hue_config.ROOM_BRIGHTNESS[room])
     return action(url=url, state=state)
 
-def set_light_color(
+def set_group_color(
     room: str,
     hue: float,
     sat: float,

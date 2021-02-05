@@ -8,7 +8,7 @@ TIMEOUT = {
     "kitchen": 3600,
 }
 
-COLOR = {
+GROUP_COLOR = {
     "pure": {
         "hue": 0.0,
         "sat": 0.0,
@@ -25,4 +25,7 @@ COLOR = {
         "hue": 7170 / 65535,
         "sat": 225 / 255,
     },
+}
+
+MODE_COLORS = {
 }

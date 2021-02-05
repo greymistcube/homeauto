@@ -6,36 +6,41 @@ def light_power(room: str, power: bool) -> None:
     """
     Turns light on and off.
     """
-    hue_io.set_light_power(room, power)
+    hue_io.set_group_power(room, power)
     return
 
 def light_color(room: str) -> None:
     """
     Adjust light color.
     """
-    color = get_light_color(room)
-    hue_io.set_light_color(room, color["hue"], color["sat"])
+    color = _get_group_color(room)
+    hue_io.set_group_color(room, color["hue"], color["sat"])
     return
 
 def ac_power(power: bool) -> None:
+    """
+    Turns ac on and off.
+    """
     if power:
         subprocess.Popen([path.AC_IO, "on"])
     else:
         subprocess.Popen([path.AC_IO, "off"])
     return
 
-def get_light_color(room: str) -> dict:
+def _get_group_color(room: str) -> dict:
     if room == "living_room":
         hour = datetime.datetime.now().hour
-        color = get_hour_to_light_color(hour)
+        color = _get_hour_to_group_color(hour)
         return color
+    elif room == "kitchen":
+        return homeauto_config.GROUP_COLOR["pure"]
     else:
-        return homeauto_config.COLOR["pure"]
+        raise ValueError(f"invalid value for room: {room}")
 
-def get_hour_to_light_color(hour: int):
+def _get_hour_to_group_color(hour: int) -> dict:
     if 2 <= hour and hour < 10:
-        return homeauto_config.COLOR["warm"]
+        return homeauto_config.GROUP_COLOR["warm"]
     elif 10 <= hour and hour < 20:
-        return homeauto_config.COLOR["ghost"]
+        return homeauto_config.GROUP_COLOR["ghost"]
     else:
-        return homeauto_config.COLOR["candle"]
+        return homeauto_config.GROUP_COLOR["candle"]

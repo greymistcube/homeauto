@@ -55,7 +55,7 @@ def light_power(room: str) -> bool:
     """
     Determines if light is on.
     """
-    return hue_io.get_light_state(room)
+    return hue_io.get_group_power(room)
 
 def light_power_long(room: str) -> bool:
     """
