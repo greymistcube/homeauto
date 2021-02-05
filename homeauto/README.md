@@ -18,7 +18,7 @@ The rest are either wrapper libraries or config files.
 
 ## Usage
 
-All files inside `homeauto` are deployed to
+All files are deployed to
 
 ```sh
 $HOME/bin/homeauto/

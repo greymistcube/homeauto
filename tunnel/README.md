@@ -15,7 +15,7 @@ script, and repeated attempts are made to reestablish a connection henceforth.
 
 ## Usage
 
-Files `tunnel.py` and `config.py` are deployed to
+Files are deployed to
 
 ```sh
 $HOME/bin/tunnel/
