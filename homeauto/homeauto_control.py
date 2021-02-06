@@ -19,6 +19,11 @@ def light_power(room: str, power: bool) -> None:
     """
     Turns light on and off.
     """
+    data = {
+        "table": f"control_{room}",
+        "state": power,
+    }
+    db_io.insert_record(data)
     hue_io.set_group_power(room, power)
 
     # when turning off, set mode to auto
@@ -34,6 +39,11 @@ def light_color(room: str) -> None:
         mode = homeauto_state.mode()
         if mode == "auto":
             color = _get_group_color(room)
+            data = {
+                "table": f"control_{room}",
+                "state": [color["hue"], color["sat"]],
+            }
+            db_io.insert_record(data)
             hue_io.set_group_color(room, color["hue"], color["sat"])
         else:
             lights = hue_io.get_group_lights(room)
@@ -43,6 +53,11 @@ def light_color(room: str) -> None:
                 hue_io.set_light_color(light, color["hue"], color["sat"])
     elif room == "kitchen":
         color = _get_group_color(room)
+        data = {
+            "table": f"control_{room}",
+            "state": [color["hue"], color["sat"]],
+        }
+        db_io.insert_record(data)
         hue_io.set_group_color(room, color["hue"], color["sat"])
     else:
         raise ValueError(f"invalid value for room: {room}")
@@ -52,6 +67,11 @@ def ac_power(power: bool) -> None:
     """
     Turns ac on and off.
     """
+    data = {
+        "table": "control_ac",
+        "state": power,
+    }
+    db_io.insert_record(data)
     if power:
         subprocess.Popen([path.AC_IO, "on"])
     else:
