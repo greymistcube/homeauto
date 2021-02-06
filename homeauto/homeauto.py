@@ -3,6 +3,11 @@
 import argparse, subprocess
 import path, homeauto_control, homeauto_state
 
+pushover_command = [
+    path.PUSHOVER,
+    "something has gone wrong while running homeauto.py",
+]
+
 def args() -> argparse.Namespace:
     desc = "homeauto main script"
     parser = argparse.ArgumentParser(
@@ -108,7 +113,4 @@ if __name__ == "__main__":
         else:
             pass
     except:
-        subprocess.run([
-            path.PUSHOVER,
-            "something has gone wrong while running homeauto.py",
-        ])
+        subprocess.run(pushover_command)

@@ -53,9 +53,11 @@ def insert_record(data: dict) -> None:
     conn.commit()
     conn.close()
 
-    homeauto_exec = os.path.join(DIR_PATH, "homeauto.py")
-    homeauto_comm = [homeauto_exec, table]
-    subprocess.run(homeauto_comm)
+    homeauto_command = [
+        os.path.join(DIR_PATH, "homeauto.py"),
+        table,
+    ]
+    subprocess.run(homeauto_command)
     return
 
 def timestamp() -> float:
