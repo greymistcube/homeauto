@@ -40,18 +40,9 @@ if __name__ == "__main__":
     conn.close()
 
     # initialize records
-    db_io.insert_record({
-        "table": "control_ac",
-        "state": False,
-    })
-    db_io.insert_record({
-        "table": "sensor_mode",
-        "state": "auto",
-    })
-    db_io.insert_record({
-        "table": "sensor_wifi",
-        "state": False,
-    })
+    db_io.insert_record({"table": "control_ac", "state": False})
+    db_io.insert_record({"table": "sensor_mode", "state": "auto"})
+    db_io.insert_record({"table": "sensor_wifi", "state": False})
 
     os.chmod(DB_DIR, 0o0777)
     os.chmod(DB_PATH, 0o0666)
