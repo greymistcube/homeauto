@@ -43,10 +43,10 @@ def prune_tables() -> None:
         conn.close()
     return
 
-def insert_record(record: dict) -> None:
+def insert_record(data: dict) -> None:
     conn = sqlite3.connect(DB_PATH)
-    table = record["table"]
-    values = (str(record["state"]), timestamp())
+    table = data["table"]
+    values = (str(data["state"]), timestamp())
     conn.execute(f"""
     INSERT INTO {table} VALUES (?, ?);
     """, values)

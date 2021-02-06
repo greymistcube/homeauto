@@ -1,12 +1,32 @@
-import subprocess, datetime
+import subprocess, datetime, random
 import path, homeauto_config, homeauto_state
-import hue_io
+import db_io, hue_io
+
+def mode(mode: str) -> None:
+    """
+    Set mode.
+    """
+    if mode != "auto" and mode not in homeauto_config.MODE_COLORS:
+        raise ValueError(f"invalid value for mode: {mode}")
+    data = {
+        "table": "sensor_mode",
+        "state": mode,
+    }
+    db_io.insert_record(data)
+    return
 
 def light_power(room: str, power: bool) -> None:
     """
     Turns light on and off.
     """
     hue_io.set_group_power(room, power)
+
+    if room == "living_room" and not power:
+        data = {
+            "table": "sensor_mode",
+            "state": "auto",
+        }
+        db_io.insert_record(data)
     return
 
 def light_color(room: str) -> None:
@@ -14,8 +34,16 @@ def light_color(room: str) -> None:
     Adjust light color.
     """
     if room == "living_room":
-        color = _get_group_color(room)
-        hue_io.set_group_color(room, color["hue"], color["sat"])
+        mode = homeauto_state.mode()
+        if mode == "auto":
+            color = _get_group_color(room)
+            hue_io.set_group_color(room, color["hue"], color["sat"])
+        else:
+            lights = hue_io.get_group_lights(room)
+            colors = homeauto_config.MODE_COLORS[mode]
+            for light in lights:
+                color = random.choice(colors)
+                hue_io.set_light_color(light, color["hue"], color["sat"])
     elif room == "kitchen":
         color = _get_group_color(room)
         hue_io.set_group_color(room, color["hue"], color["sat"])
