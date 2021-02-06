@@ -25,17 +25,16 @@ def set_ac_state(power: bool) -> None:
         pattern = ac_config.OFF_PATTERN
 
     # requires flirc_util
-    flirc_exec = "flirc_util"
-    flirc_comm = [
-        flirc_exec,
+    flirc_command = [
+        "flirc_util",
         "sendir",
         f"--pattern={pattern}",
     ]
 
     # run twice for robustness
-    subprocess.run(flirc_comm)
+    subprocess.run(flirc_command)
     time.sleep(ac_config.WAIT_TIME)
-    subprocess.run(flirc_comm)
+    subprocess.run(flirc_command)
     return
 
 if __name__ == "__main__":

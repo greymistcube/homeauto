@@ -3,13 +3,6 @@
 import argparse, subprocess
 import path, homeauto_control, homeauto_state
 
-pushover_exec = path.PUSHOVER
-pushover_msg = "something has gone wrong while running homeauto.py"
-pushover_comm = [
-    pushover_exec,
-    pushover_msg,
-]
-
 def args() -> argparse.Namespace:
     desc = "homeauto main script"
     parser = argparse.ArgumentParser(

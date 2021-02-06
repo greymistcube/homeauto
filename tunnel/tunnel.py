@@ -3,20 +3,17 @@
 import os, subprocess, time
 import config
 
-ssh_exec = "ssh"
-ssh_comm = [
-    ssh_exec,
+ssh_command = [
+    "ssh",
     "-i", f"{config.KEY}",
     "-N",
     "-R", f"{config.REMOTE_PORT}:localhost:{config.LOCAL_PORT}",
     f"{config.USER}@{config.REMOTE}",
 ]
 
-pushover_exec = "pushover.py"
-pushover_msg = f"ssh connection to {config.REMOTE} has been dropped"
-pushover_comm = [
-    pushover_exec,
-    pushover_msg,
+pushover_command = [
+    "pushover.py",
+    f"ssh connection to {config.REMOTE} has been dropped",
 ]
 
 if __name__ == "__main__":
@@ -27,14 +24,14 @@ if __name__ == "__main__":
     while True:
         # make an attempt to connect
         start = time.time()
-        subprocess.run(ssh_comm)
+        subprocess.run(ssh_command)
         end = time.time()
 
         # if an attempt lasted longer than 10 minutes
         # we assume there was a successful session
         # and then the connection dropped for whatever reason
         if end - start > config.MIN_SESSION_LENGTH:
-            subprocess.run(pushover_comm)
+            subprocess.run(pushover_command)
 
         # wait before making another attempt
         time.sleep(config.RECONNECT_WAIT_TIME)
