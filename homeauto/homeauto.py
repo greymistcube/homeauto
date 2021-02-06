@@ -31,6 +31,11 @@ def sensor_living_room():
     room = "living_room"
     if homeauto_state.light_power_long(room):
         homeauto_control.light_power(room, False)
+    elif (
+        not homeauto_state.light_power(room)
+        and homeauto_state.mode() != "auto"
+    ):
+        homeauto_control.mode("auto")
     else:
         homeauto_control.light_color(room)
     return

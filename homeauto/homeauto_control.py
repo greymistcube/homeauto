@@ -21,12 +21,9 @@ def light_power(room: str, power: bool) -> None:
     """
     hue_io.set_group_power(room, power)
 
+    # when turning off, set mode to auto
     if room == "living_room" and not power:
-        data = {
-            "table": "sensor_mode",
-            "state": "auto",
-        }
-        db_io.insert_record(data)
+        mode("auto")
     return
 
 def light_color(room: str) -> None:
