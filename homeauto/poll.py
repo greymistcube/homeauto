@@ -13,11 +13,11 @@ pushover_comm = [
 if __name__ == "__main__":
     try:
         # gather sensor data
-        light_data = {
+        group_data = {
             room: {
                 "table": f"sensor_{room}",
-                "state": hue_io.get_light_state(room),
-            } for room in hue_config.ROOMS
+                "state": hue_io.get_group_power(room),
+            } for room in hue_config.GROUPS
         }
         temp_data = {
             "table": "sensor_temp",
@@ -25,8 +25,8 @@ if __name__ == "__main__":
         }
 
         # record data
-        for room in hue_config.ROOMS:
-            db_io.insert_record(light_data[room])
+        for room in hue_config.GROUPS:
+            db_io.insert_record(group_data[room])
         db_io.insert_record(temp_data)
     except:
         subprocess.run(pushover_comm)

@@ -13,12 +13,12 @@ USER = cred["user"]
 
 LIVING_ROOM = "living_room"
 KITCHEN = "kitchen"
-ROOMS = [LIVING_ROOM, KITCHEN]
-ROOM_URL = {
+GROUPS = [LIVING_ROOM, KITCHEN]
+GROUP_URL = {
     LIVING_ROOM: f"{URL}/api/{USER}/groups/1",
     KITCHEN: f"{URL}/api/{USER}/groups/2",
 }
-ROOM_BRIGHTNESS = {
+GROUP_BRIGHTNESS = {
     LIVING_ROOM: 0.8,
     KITCHEN: 1.0,
 }

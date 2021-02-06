@@ -31,6 +31,11 @@ def sensor_living_room():
     room = "living_room"
     if homeauto_state.light_power_long(room):
         homeauto_control.light_power(room, False)
+    elif (
+        not homeauto_state.light_power(room)
+        and homeauto_state.mode() != "auto"
+    ):
+        homeauto_control.mode("auto")
     else:
         homeauto_control.light_color(room)
     return
@@ -44,6 +49,14 @@ def sensor_kitchen():
         homeauto_control.light_power(room, False)
     else:
         homeauto_control.light_color(room)
+    return
+
+def sensor_mode():
+    """
+    Control living room light when triggered by mode change.
+    """
+    room = "living_room"
+    homeauto_control.light_color(room)
     return
 
 def sensor_temp():
@@ -97,6 +110,8 @@ if __name__ == "__main__":
             sensor_temp()
         elif options.sensor == "sensor_wifi":
             sensor_wifi()
+        elif options.sensor == "sensor_mode":
+            sensor_mode()
         else:
             pass
     except:
