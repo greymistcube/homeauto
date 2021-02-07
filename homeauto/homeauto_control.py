@@ -2,19 +2,6 @@ import subprocess, datetime, random
 import path, homeauto_config, homeauto_state
 import db_io, hue_io
 
-def mode(mode: str) -> None:
-    """
-    Set mode.
-    """
-    if mode != "auto" and mode not in homeauto_config.MODE_COLORS:
-        raise ValueError(f"invalid value for mode: {mode}")
-    data = {
-        "table": "sensor_mode",
-        "state": mode,
-    }
-    db_io.insert_record(data)
-    return
-
 def light_power(group: str, power: bool) -> None:
     """
     Turns light on and off.
@@ -28,7 +15,7 @@ def light_power(group: str, power: bool) -> None:
 
     # when turning off, set mode to auto
     if group == "living_room" and not power:
-        mode("auto")
+        subprocess.run([path.MODE, "auto"])
     return
 
 def light_color(group: str) -> None:

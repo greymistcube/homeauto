@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import argparse, subprocess, time
-import ac_config
+import path, ac_config
 
 def args() -> argparse.Namespace:
     desc = "ac control script"
@@ -26,7 +26,7 @@ def set_ac_state(power: bool) -> None:
 
     # requires flirc_util
     flirc_command = [
-        "flirc_util",
+        path.FLIRC,
         "sendir",
         f"--pattern={pattern}",
     ]

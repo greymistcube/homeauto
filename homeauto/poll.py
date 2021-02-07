@@ -1,12 +1,7 @@
 #!/usr/bin/python3
 
 import subprocess
-import db_io, hue_io, hue_config
-
-pushover_command = [
-    "pushover.py",
-    f"polling failed",
-]
+import path, db_io, hue_io, hue_config
 
 if __name__ == "__main__":
     try:
@@ -27,4 +22,4 @@ if __name__ == "__main__":
             db_io.insert_record(group_data[group])
         db_io.insert_record(temp_data)
     except:
-        subprocess.run(pushover_command)
+        subprocess.run([path.PUSHOVER, "polling failed"])

@@ -3,11 +3,6 @@
 import argparse, subprocess
 import path, homeauto_control, homeauto_state
 
-pushover_command = [
-    path.PUSHOVER,
-    "something has gone wrong while running homeauto.py",
-]
-
 def args() -> argparse.Namespace:
     desc = "homeauto main script"
     parser = argparse.ArgumentParser(
@@ -33,7 +28,7 @@ def sensor_living_room():
         not homeauto_state.light_power(group)
         and homeauto_state.mode() != "auto"
     ):
-        homeauto_control.mode("auto")
+        subprocess.run([path.MODE, "auto"])
     else:
         homeauto_control.light_color(group)
     return
@@ -113,4 +108,7 @@ if __name__ == "__main__":
         else:
             pass
     except:
-        subprocess.run(pushover_command)
+        subprocess.run([
+            path.PUSHOVER,
+            "something has gone wrong while running homeauto.py",
+        ])

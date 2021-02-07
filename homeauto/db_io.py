@@ -1,5 +1,5 @@
 import sys, os, sqlite3, datetime, subprocess
-import db_config
+import path, db_config
 
 # setting up paths
 MOD_PATH = os.path.realpath(__file__)
@@ -53,11 +53,7 @@ def insert_record(data: dict) -> None:
     conn.commit()
     conn.close()
 
-    homeauto_command = [
-        os.path.join(DIR_PATH, "homeauto.py"),
-        table,
-    ]
-    subprocess.run(homeauto_command)
+    subprocess.run([path.HOMEAUTO, table])
     return
 
 def timestamp() -> float:

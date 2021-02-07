@@ -3,20 +3,20 @@
 import os, subprocess, time
 import config
 
-ssh_command = [
-    "ssh",
-    "-i", f"{config.KEY}",
-    "-N",
-    "-R", f"{config.REMOTE_PORT}:localhost:{config.LOCAL_PORT}",
-    f"{config.USER}@{config.REMOTE}",
-]
-
-pushover_command = [
-    "pushover.py",
-    f"ssh connection to {config.REMOTE} has been dropped",
-]
-
 if __name__ == "__main__":
+    ssh_command = [
+        "ssh",
+        "-i", f"{config.KEY}",
+        "-N",
+        "-R", f"{config.REMOTE_PORT}:localhost:{config.LOCAL_PORT}",
+        f"{config.USER}@{config.REMOTE}",
+    ]
+
+    pushover_command = [
+        "pushover.py",
+        f"ssh connection to {config.REMOTE} has been dropped",
+    ]
+
     # since this is a boot script
     # wait for other services to load just in case
     time.sleep(config.BOOT_WAIT_TIME)

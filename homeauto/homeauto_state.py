@@ -1,5 +1,5 @@
 import os, datetime
-import db_io, hue_io, path, homeauto_config
+import path, db_io, hue_io, homeauto_config
 
 def ac_power() -> bool:
     """
