@@ -1,5 +1,5 @@
 import os, datetime
-import db_io, hue_io, path, homeauto_config
+import path, db_io, hue_io, homeauto_config
 
 def ac_power() -> bool:
     """
@@ -51,17 +51,17 @@ def mode() -> str:
     except:
         return "auto"
 
-def light_power(room: str) -> bool:
+def light_power(group: str) -> bool:
     """
     Determines if light is on.
     """
-    return hue_io.get_group_power(room)
+    return hue_io.get_group_power(group)
 
-def light_power_long(room: str) -> bool:
+def light_power_long(group: str) -> bool:
     """
     Determines if light has been on for too long.
     """
-    records = db_io.latest_records(f"sensor_{room}")
+    records = db_io.latest_records(f"sensor_{group}")
     records = [(record[0] == "True", record[1]) for record in records]
     false_index = -1
     for i in range(len(records)):
@@ -73,7 +73,7 @@ def light_power_long(room: str) -> bool:
     # or at least the latest recorded light state was on
     if records:
         on_time = datetime.datetime.now().timestamp() - records[-1][1]
-        return homeauto_config.TIMEOUT[room] < on_time
+        return homeauto_config.GROUP_TIMEOUT[group] < on_time
     # the latest recorded light state was off
     else:
         return False

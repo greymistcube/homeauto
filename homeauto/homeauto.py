@@ -3,13 +3,6 @@
 import argparse, subprocess
 import path, homeauto_control, homeauto_state
 
-pushover_exec = path.PUSHOVER
-pushover_msg = "something has gone wrong while running homeauto.py"
-pushover_comm = [
-    pushover_exec,
-    pushover_msg,
-]
-
 def args() -> argparse.Namespace:
     desc = "homeauto main script"
     parser = argparse.ArgumentParser(
@@ -28,35 +21,35 @@ def sensor_living_room():
     """
     Control living room light when triggered by living room sensor.
     """
-    room = "living_room"
-    if homeauto_state.light_power_long(room):
-        homeauto_control.light_power(room, False)
+    group = "living_room"
+    if homeauto_state.light_power_long(group):
+        homeauto_control.light_power(group, False)
     elif (
-        not homeauto_state.light_power(room)
+        not homeauto_state.light_power(group)
         and homeauto_state.mode() != "auto"
     ):
-        homeauto_control.mode("auto")
+        subprocess.run([path.MODE, "auto"])
     else:
-        homeauto_control.light_color(room)
+        homeauto_control.light_color(group)
     return
 
 def sensor_kitchen():
     """
     Control kitchen light when triggered by kitchen sensor.
     """
-    room = "kitchen"
-    if homeauto_state.light_power_long(room):
-        homeauto_control.light_power(room, False)
+    group = "kitchen"
+    if homeauto_state.light_power_long(group):
+        homeauto_control.light_power(group, False)
     else:
-        homeauto_control.light_color(room)
+        homeauto_control.light_color(group)
     return
 
 def sensor_mode():
     """
     Control living room light when triggered by mode change.
     """
-    room = "living_room"
-    homeauto_control.light_color(room)
+    group = "living_room"
+    homeauto_control.light_color(group)
     return
 
 def sensor_temp():

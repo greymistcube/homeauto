@@ -1,13 +1,13 @@
 import requests
-import db_io, hue_config
+import hue_config
 
 # sensor functions
-def get_group_power(room: str) -> bool:
-    response = requests.get(url=hue_config.GROUP_URL[room])
+def get_group_power(group: str) -> bool:
+    response = requests.get(url=hue_config.GROUP_URL[group])
     return response.json()["state"]["any_on"]
 
-def get_group_lights(room: str) -> list:
-    response = requests.get(url=hue_config.GROUP_URL[room])
+def get_group_lights(group: str) -> list:
+    response = requests.get(url=hue_config.GROUP_URL[group])
     return response.json()["lights"]
 
 def get_temp_state() -> float:
@@ -15,24 +15,14 @@ def get_temp_state() -> float:
     return response.json()["state"]["temperature"] / 100
 
 # control functions
-def set_group_power(room: str, power: bool) -> requests.Response:
-    data = {
-        "table": f"control_{room}",
-        "state": power,
-    }
-    db_io.insert_record(data)
-    group_url = hue_config.GROUP_URL[room]
-    state = group_power_state(power, hue_config.GROUP_BRIGHTNESS[room])
+def set_group_power(group: str, power: bool) -> requests.Response:
+    group_url = hue_config.GROUP_URL[group]
+    state = group_power_state(power, hue_config.GROUP_BRIGHTNESS[group])
     return set_group_state(group_url=group_url, state=state)
 
-def set_group_color(room: str, hue: float, sat: float) -> requests.Response:
-    data = {
-        "table": f"control_{room}",
-        "state": [hue, sat],
-    }
-    db_io.insert_record(data)
-    group_url = hue_config.GROUP_URL[room]
-    state = group_color_state(hue, sat, hue_config.GROUP_BRIGHTNESS[room])
+def set_group_color(group: str, hue: float, sat: float) -> requests.Response:
+    group_url = hue_config.GROUP_URL[group]
+    state = group_color_state(hue, sat, hue_config.GROUP_BRIGHTNESS[group])
     return set_group_state(group_url=group_url, state=state)
 
 def set_light_power(light: str, power: bool) -> requests.Response:
